@@ -8,16 +8,16 @@ import Success from "../pages/Success"
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <GlobalStyle />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Movies />} />
-        <Route path="/sessoes/:id" element={<Sessions />} />
-        <Route path="/assentos/:id" element={<Seats />} />
-        <Route path="/success" element={<Success />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <GlobalStyle />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Movies />} />
+          <Route path="/sessoes/:id" element={<Sessions />} />
+          <Route path="/assentos/:id" element={<Seats />} />
+          <Route path="/success" element={<Success />} />
+        </Routes>
+      </BrowserRouter></>
   );
 }
-

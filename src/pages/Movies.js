@@ -1,12 +1,35 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 export default function Movies() {
+
+    const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+        const promise = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
+        promise.then(({ data }) => {
+            setMovies(data);
+        })
+        promise.catch((err) => {
+            console.log("ERR", err);
+        });
+    }, []);
 
     return (
         <>
             <PageTitle>Selecione o filme</PageTitle>
             <Container>
-                <Movie />
+                {movies.map((mov) => {
+                    return (
+                        <Movie key={mov.id} data-test="movie">
+                            <Link to={`/sessoes/${mov.id}`}>
+                                <img src={mov.posterURL} alt={mov.overview} />
+                            </Link>
+                        </Movie>
+                    );
+                })}
             </Container>
         </>
     )
@@ -45,6 +68,5 @@ const Movie = styled.div`
     img {
         width: 129px;
         height: 193px;
-        //background: url(image.png);
     }
 `

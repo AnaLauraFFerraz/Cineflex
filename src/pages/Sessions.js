@@ -5,7 +5,7 @@ export default function Sessions() {
     return(
         <>
             <PageTitle>Selecione o horário</PageTitle>
-            <Session></Session>
+            
             <Footer />
         </>
     )

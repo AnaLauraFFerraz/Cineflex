@@ -26,8 +26,6 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	font-family: 'Roboto', sans-serif;
-    background-color: white;
 	line-height: 1;
 }
 ol, ul {
@@ -44,7 +42,6 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}
-`;
+}`;
 
 export default GlobalStyle;
