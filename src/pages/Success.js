@@ -1,13 +1,9 @@
-import styled from "styled-components";
+//import styled from "styled-components";
 
 export default function Success() {
     return (
         <>
-            <Container></Container>
+            {console.log("Success page")}
         </>
     )
 }
-
-const Container = styled.div`
-    display: flex;
-`

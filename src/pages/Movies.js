@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
 export default function Movies() {
 
-    const [moviesList, setMoviesList] = useState([]);
+    const [movie, setMovie] = useState([]);
 
     useEffect(() => {
         const promise = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
         promise.then(res => {
-            setMoviesList(res.data);
+            setMovie(res.data);
         })
         promise.catch((err) => {
             console.log("ERR", err.res.data);
@@ -21,7 +21,7 @@ export default function Movies() {
         <>
             <PageTitle>Selecione o filme</PageTitle>
             <Container>
-                {moviesList.map((mov) => {
+                {movie.map((mov) => {
                     return (
                         <Movie key={mov.id} data-test="movie">
                             <Link to={`/sessoes/${mov.id}`}>
@@ -43,7 +43,6 @@ const PageTitle = styled.h2`
     justify-content: center;
     margin-top: 67px;
     color: #293845;
-    font-family: 'Roboto';
     font-size: 24px;
     line-height: 28px;
     letter-spacing: 0.04em;
@@ -53,7 +52,7 @@ const Container = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
-    box-sizing:border-box;
+    box-sizing: border-box;
     padding: 0 30px 25px 30px;
 `
 const Movie = styled.div`
