@@ -2,11 +2,13 @@ import styled from "styled-components";
 
 export default function Header() {
     return (
-        <Title>CINEFLEX</Title>
+        <Title>
+            <h1>CINEFLEX</h1>
+        </Title>
     )
 }
 
-const Title = styled.h1`
+const Title = styled.header`
     display:flex;
     width: 100%;
     height: 67px;
@@ -16,9 +18,12 @@ const Title = styled.h1`
     align-items: center;
     justify-content: center;
     background-color:#C3CFD9;
-    color: #E8833A;
-    font-size: 34px;
-    font-weight: 400;
-    line-height: 40px;
     box-sizing: border-box;
+    h1 {
+        color: #E8833A;
+        font-family: 'Roboto';
+        font-size: 34px;
+        font-weight: 400;
+        line-height: 40px;
+    }
 `
