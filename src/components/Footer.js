@@ -4,8 +4,10 @@ export default function Footer(props) {
     return (
         <>
             <Description data-test="footer">
-                <img alt="Filme escolhido" />
-                <p></p>
+                <img src={props.img} alt="Filme escolhido" />
+                <p>
+                    {props.title}
+                </p>
             </Description>
         </>
     )
