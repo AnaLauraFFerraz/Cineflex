@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
-export default function Footer(props) {
+export default function Footer({img, title, day, time}) {
     return (
         <>
             <Description data-test="footer">
-                <img src={props.img} alt="Filme escolhido" />
+                <img src={img} alt={title} />
                 <p>
-                    {props.title}
+                    {title}
+                    {day !== undefined ? (`${day.weekday} - ${time}`) : null}
                 </p>
             </Description>
         </>

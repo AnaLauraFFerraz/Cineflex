@@ -9,12 +9,8 @@ export default function Movies() {
 
     useEffect(() => {
         const promise = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
-        promise.then(res => {
-            setMovie(res.data);
-        })
-        promise.catch((err) => {
-            console.log("ERR", err.res.data);
-        });
+        promise.then((res) => setMovie(res.data))
+        promise.catch((err) => console.log("ERR", err));
     }, []);
 
     return (

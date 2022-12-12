@@ -1,28 +1,47 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import Seat from "../components/Seat"
 import Footer from "../components/Footer"
 
 export default function Seats() {
+    const statusColor = {
+        clicked: { color: "#1AAE9E", border: "#0E7D71" },
+        available: { color: "#C3CFD9", border: "#808F9D" },
+        unavailable: { color: "#FBE192", border: "#F7C52B" }
+    }
     const { idSession } = useParams();
-    const navigate = useNavigate();
-    const [showtime, setShowtime] = useState([]);
-    const [seat, setSeat] = useState([]);
-    const [seatSelected, setseatSelected] = useState([]);
+    const [seatData, setSeatData] = useState([]);
+    const [selectedSeats, setSelectedSeats] = useState([]);
+    const [selected, setSelected] = useState(false);
+    const [seatColor, setSeatColor] = useState(statusColor.available);
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSession}/seats`);
-        promise.then((res) => setShowtime(res.data));
+        promise.then((res) => setSeatData(res.data));
         promise.catch((err) => console.log("ERR", err));
-    }, []);
+    }, [idSession]);
 
     return (
         <>
             <PageTitle>Selecione o(s) assento(s)</PageTitle>
             <SeatsContainer>
-                {showtime.seats?.map((seat, i) => {
-                    return <Seat key={seat.name}>{seat.name}</Seat>
+                {seatData.seats?.map((seat, i) => {
+
+                    return <Seat
+                        key={i}
+                        name={seat.name}
+                        id={seat.id}
+                        isAvailable={seat.isAvailable}
+                        statusColor={statusColor}
+                        selected={selected}
+                        setSelected={setSelected}
+                        seatColor={seatColor}
+                        setSeatColor={setSeatColor}
+                        selectedSeats={selectedSeats}
+                        setSelectedSeats={setSelectedSeats}
+                    />
                 })}
             </SeatsContainer>
             <SeatsLabels>
@@ -56,7 +75,7 @@ export default function Seats() {
                     <button type="submit">Reservar assento(s)</button>
                 </Button>
             </Form>
-            <Footer />
+            <Footer img={seatData.posterURL} title={seatData.title} day={seatData.weekday} time={seatData.name} />
         </>
     )
 }
@@ -81,21 +100,6 @@ const SeatsContainer = styled.div`
     padding-left: 24px;
     padding-right: 18px;
     box-sizing: border-box;
-`
-const Seat = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    margin: 0 7px 18px 0; 
-    box-sizing: border-box;
-    background-color: #C3CFD9;
-    border: 1px solid #808F9D;
-    border-radius: 12px;
-    color: "#000000";
-    font-size: 11px;
-    line-height: 13px;
 `
 const SeatsLabels = styled.div`
     display: flex;
