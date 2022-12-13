@@ -62,7 +62,6 @@ export default function Seats() {
                         name={seat.name}
                         id={seat.id}
                         isAvailable={seat.isAvailable}
-                        statusColor={statusColor}
                         selected={selected}
                         setSelected={setSelected}
                         seatColor={seatColor}

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export default function Seat({ name, id, isAvailable, statusColor, selected, setSelected, seatColor, setSeatColor, selectedSeats, setSelectedSeats }) {
+export default function Seat({ name, id, isAvailable, selected, setSelected, selectedSeats, setSelectedSeats }) {
 
     function handleClick() {
         if (isAvailable) {
             if (!selected) {
                 setSelected(true);
-                setSelectedSeats((seats) => [...seats, id])
+                setSelectedSeats((seats) => [...seats, name])
             } else {
                 setSelected(false);
                 setSelectedSeats(selectedSeats.filter((seats) => seats !== id));
@@ -14,28 +14,43 @@ export default function Seat({ name, id, isAvailable, statusColor, selected, set
         } else {
             alert("Esse assento não está disponível");
         }
+        handleColor();
     }
 
-    function handleColors() {
+    function handleColor() {
+        let color = "";
         if (isAvailable) {
-            setSeatColor(statusColor.available)
-            selected ?? setSeatColor(statusColor.clicked)
+            if (selectedSeats.includes(name)) {
+                color = "#1AAE9E";
+            } else {
+                color = "#C3CFD9";
+            }
         } else {
-            setSeatColor(statusColor.unavailable)
+            color = "#FBE192";
         }
-        //console.log(seatColor)
-        return seatColor;
+        return color
+    };
+
+    function handleBorder() {
+        let border = "";
+        if (isAvailable) {
+            if (selected) {
+                border = "1px solid #0E7D71";
+            } else {
+                border = "1px solid #808F9D";
+            }
+        } else {
+            border = "1px solid #F7C52B";
+        }
+        return border;
     }
 
-    function handleColorTime() {
-        setTimeout(() => {
-            handleColors()
-        }, 5000)
-    }
 
     return (
-        <SeatItem onClick={() => handleClick()} colors={handleColorTime()} data-test="seat">
+        <SeatItem key={id} onClick={() => handleClick()} color={handleColor()} border={handleBorder()} data-test="seat">
             {name}
+            {console.log(name)}
+            {console.log(selectedSeats)}
         </SeatItem>
     )
 }
@@ -48,8 +63,8 @@ const SeatItem = styled.div`
     height: 26px;
     margin: 0 7px 18px 0;
     box-sizing: border-box;
-    background: ${props => props.colors.color};
-    border-color: ${props => props.colors.border};
+    background: ${props => props.color};
+    border-color: ${props => props.border};
     border: 1px solid;
     border-radius: 12px;
     font-size: 11px;
