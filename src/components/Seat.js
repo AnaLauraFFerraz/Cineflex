@@ -23,6 +23,7 @@ export default function Seat({ name, id, isAvailable, statusColor, selected, set
         } else {
             setSeatColor(statusColor.unavailable)
         }
+        //console.log(seatColor)
         return seatColor;
     }
 
@@ -45,10 +46,10 @@ const SeatItem = styled.div`
     justify-content: center;
     width: 26px;
     height: 26px;
-    margin: 0 7px 18px 0; 
+    margin: 0 7px 18px 0;
     box-sizing: border-box;
-    background: ${props => props.color};
-    border-color: ${props => props.border};
+    background: ${props => props.colors.color};
+    border-color: ${props => props.colors.border};
     border: 1px solid;
     border-radius: 12px;
     font-size: 11px;

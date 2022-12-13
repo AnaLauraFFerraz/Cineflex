@@ -20,8 +20,8 @@ export default function Sessions() {
             <ul>
                 {session.days?.map((day) => {
                     return (
-                        <SessionInfo key={day.id}>
-                            <p data-test="movie-day">
+                        <SessionInfo key={day.id} data-test="movie-day">
+                            <p>
                                 {day.weekday} - {day.date} <br />
                             </p>
                             {day.showtimes?.map((time) => {

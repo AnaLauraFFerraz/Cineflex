@@ -1,17 +1,20 @@
 import styled from "styled-components";
 
-export default function Footer({img, title, day, time}) {
+export default function Footer(props) {
     return (
-        <>
-            <Description data-test="footer">
-                <img src={img} alt={title} />
-                <p>
-                    {title}
-                    {day !== undefined ? (`${day.weekday} - ${time}`) : null}
-                </p>
-            </Description>
-        </>
-    )
+        <Description data-test="footer">
+            <img src={props.img} alt="Imagem" />
+            <p>
+                {props.title}
+                {props.showtime ? (
+                    <>
+                        <br />
+                        {props.showtime}
+                    </>
+                ) : null}
+            </p>
+        </Description>
+    );
 }
 
 const Description = styled.footer`

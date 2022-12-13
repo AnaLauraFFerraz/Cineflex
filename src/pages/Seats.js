@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import Seat from "../components/Seat"
@@ -12,16 +12,44 @@ export default function Seats() {
         unavailable: { color: "#FBE192", border: "#F7C52B" }
     }
     const { idSession } = useParams();
+    const navigate = useNavigate();
     const [seatData, setSeatData] = useState([]);
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [selected, setSelected] = useState(false);
     const [seatColor, setSeatColor] = useState(statusColor.available);
+    const [inputName, setInputName] = useState("")
+    const [inputCpf, setInputCpf] = useState("")
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSession}/seats`);
         promise.then((res) => setSeatData(res.data));
         promise.catch((err) => console.log("ERR", err));
     }, [idSession]);
+
+    function handleForm(e) {
+        e.preventDefault();
+
+        const submitData = {
+            ids: selectedSeats,
+            name: inputName,
+            cpf: inputCpf
+        };
+        const promise = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", submitData)
+        promise.then((response) => {
+            console.log(response.data)
+            const resData = {
+                title: seatData?.movie.title,
+                date: seatData?.day.date,
+                time: seatData?.name,
+                seats: selectedSeats,
+                inputName,
+                inputCpf,
+            };
+            localStorage.setItem('data', JSON.stringify(resData));
+            navigate("/success");
+        })
+        promise.catch((err) => console.log("ERR", err));
+    }
 
     return (
         <>
@@ -58,24 +86,34 @@ export default function Seats() {
                     <p>Indisponível</p>
                 </div>
             </SeatsLabels>
-            <Form>
-                <label>Nome do comprador:</label>
+            <Form action="" method="GET" onSubmit={(e) => handleForm(e)}>
+                <label htmlFor="name">Nome do comprador:</label>
                 <input
                     type="text"
+                    id="name"
                     placeholder="Digite seu nome..."
                     required
+                    data-test="client-name"
+                    onChange={(val) => setInputName(val.target.value)}
                 />
-                <label>CPF do comprador:</label>
+                <label htmlFor="cpf">CPF do comprador:</label>
                 <input
                     type="text"
+                    id="cpf"
                     placeholder="Digite seu CPF..."
                     required
+                    data-test="client-cpf"
+                    onChange={(val) => setInputCpf(val.target.value)}
                 />
                 <Button>
                     <button type="submit">Reservar assento(s)</button>
                 </Button>
             </Form>
-            <Footer img={seatData.posterURL} title={seatData.title} day={seatData.weekday} time={seatData.name} />
+            <Footer
+                img={seatData.movie?.posterURL}
+                title={seatData.movie?.title}
+                showtime={`${seatData.day?.weekday} - ${seatData.name}`}
+            />
         </>
     )
 }
