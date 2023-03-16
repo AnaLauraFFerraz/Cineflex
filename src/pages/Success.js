@@ -11,21 +11,21 @@ export default function Success() {
     return (
         <>
             <PageTitle>
-                Pedido feito<br />com sucesso!
+                Pedido feito com sucesso!
             </PageTitle>
             <Container>
-                <BlockInfo data-test="movie-info">
+                <BlockInfo>
                     <h3>Filme e sessão</h3>
                     <p>{data.title}</p>
                     <p>{`${data.date} ${data.time}`}</p>
                 </BlockInfo>
-                <BlockInfo data-test="seats-info">
+                <BlockInfo>
                     <h3>Ingressos</h3>
                     {data.seats.map((s) => (
                         <p key={s}>Assento {s}</p>
                     ))}
                 </BlockInfo>
-                <BlockInfo data-test="client-info">
+                <BlockInfo>
                     <h3>Comprador</h3>
                     <p>Nome: {data.inputName}</p>
                     <p>CPF: {data.inputCpf}</p>
@@ -33,7 +33,7 @@ export default function Success() {
             </Container>
             <Link to={`/`}>
                 <Button>
-                    <button type="button" data-test="go-home-btn" onClick={() => goToMovies()}>Voltar para a Home</button>
+                    <button type="button" onClick={() => goToMovies()}>Voltar para a Home</button>
                 </Button>
             </Link>
         </>
@@ -49,7 +49,7 @@ const PageTitle = styled.h2`
     height: 110px;
     color: #247A6B;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 28px;
     line-height: 28px;
     letter-spacing: 0.04em;
     margin-top: 67px;
@@ -57,7 +57,7 @@ const PageTitle = styled.h2`
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: baseline;
+    align-items: center;
     width: 100%;
     box-sizing: border-box;
     padding: 30px;
@@ -65,9 +65,9 @@ const Container = styled.div`
 const BlockInfo = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    height: 110px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     h3 {
         flex-wrap: wrap;
         color: #293845;
@@ -78,6 +78,7 @@ const BlockInfo = styled.div`
         margin-bottom: 10px;
     };
     p {
+        margin-bottom: 5px;
         flex-wrap: wrap;
         color: #293845;
         font-weight: 400;
@@ -88,12 +89,12 @@ const BlockInfo = styled.div`
 `
 const Button = styled.div`
     display: flex;
+    position: fixed;
+    bottom: 120px;
+    left: 0;
     width: 100%;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    bottom: 147px;
-    left: 0;
     button {
         display: flex;
         width: 225px;
