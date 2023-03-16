@@ -47,7 +47,7 @@ const PageTitle = styled.h2`
     height: 110px;
     align-items: center;
     justify-content: center;
-    margin-top: 67px;
+    margin-top: 80px;
     color: #293845;
     font-size: 24px;
     line-height: 28px;

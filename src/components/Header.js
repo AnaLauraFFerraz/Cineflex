@@ -11,19 +11,19 @@ export default function Header() {
 const Title = styled.header`
     display:flex;
     width: 100%;
-    height: 67px;
+    height: 80px;
     position: fixed;
     top: 0;
     left: 0;
     align-items: center;
     justify-content: center;
-    background-color:#C3CFD9;
+    background-color: #161B22;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     box-sizing: border-box;
     h1 {
-        color: #E8833A;
-        font-family: 'Roboto';
+        color: red;
         font-size: 34px;
-        font-weight: 400;
+        font-weight: 700;
         line-height: 40px;
     }
 `

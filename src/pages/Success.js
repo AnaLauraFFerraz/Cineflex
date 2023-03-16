@@ -52,7 +52,7 @@ const PageTitle = styled.h2`
     font-size: 28px;
     line-height: 28px;
     letter-spacing: 0.04em;
-    margin-top: 67px;
+    margin-top: 80px;
 `
 const Container = styled.div`
     display: flex;
