@@ -23,7 +23,7 @@ export default function Seats() {
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSession}/seats`);
         promise.then((res) => setSeatData(res.data));
-        promise.catch((err) => console.log("ERR", err));
+        promise.catch((err) => window.location.reload);
     }, [idSession]);
 
     function handleForm(e) {
@@ -54,6 +54,7 @@ export default function Seats() {
     return (
         <>
             <PageTitle>Selecione o(s) assento(s)</PageTitle>
+
             <SeatsContainer>
                 {seatData.seats?.map((seat, i) => {
 
@@ -71,6 +72,7 @@ export default function Seats() {
                     />
                 })}
             </SeatsContainer>
+
             <SeatsLabels>
                 <div>
                     <Label color="#1AAE9E" border="#0E7D71"></Label>
@@ -85,6 +87,7 @@ export default function Seats() {
                     <p>Indisponível</p>
                 </div>
             </SeatsLabels>
+
             <Form action="" method="GET" onSubmit={(e) => handleForm(e)}>
                 <label htmlFor="name">Nome do comprador:</label>
                 <input
@@ -108,6 +111,7 @@ export default function Seats() {
                     <button type="submit">Reservar assento(s)</button>
                 </Button>
             </Form>
+            
             <Footer
                 img={seatData.movie?.posterURL}
                 title={seatData.movie?.title}
@@ -130,24 +134,25 @@ const PageTitle = styled.h2`
     letter-spacing: 0.04em;
 `
 const SeatsContainer = styled.div`
-    width: 100%;
-    height: auto;
     display: flex;
     flex-wrap: wrap;
-    padding-left: 24px;
-    padding-right: 18px;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    padding: 0 20px;
     box-sizing: border-box;
 `
 const SeatsLabels = styled.div`
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     div {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        margin: 10px 20px;
     };
     p {
         color: #4E5A65;
@@ -169,6 +174,7 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
     width: 100%;
+    align-items: center;
     padding: 24px;
     box-sizing: border-box;
     label {
@@ -179,7 +185,7 @@ const Form = styled.form`
     input {
         width: 327px;
         height: 51px;
-        margin: 4px 0 10px 0;
+        margin: 10px 0 20px 0;
         box-sizing: border-box;
         border: 1px solid #D5D5D5;
         border-radius: 3px;
@@ -195,12 +201,12 @@ const Form = styled.form`
 `
 const Button = styled.div`
     display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
     position: fixed;
     bottom: 147px;
     left: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
     button {
         display: flex;
         width: 225px;
